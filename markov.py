@@ -13,16 +13,15 @@ def open_and_read_file(file_path):
     # your code goes here
     # open the file (read mode)
     # turn content content of file in one line string
-    # split string by whitespace 
+    # split string by whitespace
     # convert back one line string - for loop - concatanate list into string
-    # return string 
+    # return string
 
     with open(file_path) as new_file:
         lines = new_file.read()
         split_lines = lines.split()
 
     return split_lines
-
 
 
 def make_chains(text_string):
@@ -56,15 +55,8 @@ def make_chains(text_string):
     # return completed dictionary
 
     chains = {}
-    # chain_key = (text_string[i], text_string[i + 1])
 
     for i in range(len(text_string)-2):
-        # chains.setdefault((text_string[i], text_string[i + 1]), []).append(text_string[i + 2])
-        # if chains.get((text_string[i], text_string[i + 1])):
-        #     chains[(text_string[i], text_string[i + 1])].append(text_string[i + 2])
-        # chains[(text_string[i], text_string[i + 1])] = [text_string[i + 2]]
-        # if i == len(text_string) - 2:
-        #     chains[(text_string[i], text_string[i + 1])] = None
 
         key = (text_string[i], text_string[i + 1])
 
@@ -72,17 +64,33 @@ def make_chains(text_string):
             chains[key].append(text_string[i + 2])
         else:
             chains[key] = [text_string[i + 2]]
-    # print type(chain_key)
-    print chains
+
     return chains
 
 
 def make_text(chains):
     """Return text from chains."""
+    # choose random first key from chains
+    # add both items in key to words list
+    # check if key is in chains, while key is in chains
+        # assign random value from chains[key] to chosen_word
+        # add chosen_word to words list
+        # generate new key using key[1] and chosen_word
+    # when key not in chain [words].join and return string
 
     words = []
 
-    # your code goes here
+    key = choice(chains.keys())
+    for item in key:
+            words.append(item)
+
+    while key in chains:
+        # print "key: ", key
+        chosen_word = choice(chains[key])
+        # print "chosen word: ", chosen_word
+        words.append(chosen_word)
+        # print words
+        key = (key[1], chosen_word)
 
     return " ".join(words)
 
@@ -96,6 +104,7 @@ input_text = open_and_read_file(input_path)
 chains = make_chains(input_text)
 
 # # Produce random text
-# random_text = make_text(chains)
+random_text = make_text(chains)
 
-# print random_text
+print random_text
+
