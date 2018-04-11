@@ -101,7 +101,7 @@ def make_text(chains, n):
         words.append(chosen_word)
         # if chosen_word ends with "." or "?" break out of loop and return " ".join(words)
         # else: continue with the loop
-        if chosen_word[-1] == '.' or chosen_word[-1] == '?':
+        if chosen_word[-1] in ".?!":
             break
         else:
             new_key = ()
