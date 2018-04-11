@@ -99,11 +99,16 @@ def make_text(chains, n):
         chosen_word = choice(chains[key])
         # print "chosen_word: ", chosen_word
         words.append(chosen_word)
-        new_key = ()
-        for i in range(n-1):
-            new_key += (key[i + 1],)
-        new_key += (chosen_word,)
-        key = new_key
+        # if chosen_word ends with "." or "?" break out of loop and return " ".join(words)
+        # else: continue with the loop
+        if chosen_word[-1] == '.' or chosen_word[-1] == '?':
+            break
+        else:
+            new_key = ()
+            for i in range(n-1):
+                new_key += (key[i + 1],)
+            new_key += (chosen_word,)
+            key = new_key
     return " ".join(words)
 
 
