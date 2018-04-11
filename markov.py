@@ -69,7 +69,7 @@ def make_chains(text_string, n):
     return chains
 
 
-def make_text(chains):
+def make_text(chains, n):
     """Return text from chains."""
     # choose random first key from chains
     # add both items in key to words list
@@ -80,16 +80,30 @@ def make_text(chains):
     # when key not in chain [words].join and return string
 
     words = []
+    title_list = []
 
-    key = choice(chains.keys())
+    # put all keys into list
+    # check first element of each item with istitle()
+    # if True, append element (a tuple) to new_list
+    # key = choice(new_list)
+    new_list = chains.keys()
+    for item in new_list:
+        if item[0].istitle():
+            title_list.append(item)
+
+    key = choice(title_list)
     for item in key:
         words.append(item)
 
     while key in chains:
         chosen_word = choice(chains[key])
+        # print "chosen_word: ", chosen_word
         words.append(chosen_word)
-        key = (key[1], chosen_word)
-
+        new_key = ()
+        for i in range(n-1):
+            new_key += (key[i + 1],)
+        new_key += (chosen_word,)
+        key = new_key
     return " ".join(words)
 
 
@@ -99,9 +113,9 @@ input_path = sys.argv[1]
 input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
-chains = make_chains(input_text, 5)
+chains = make_chains(input_text, 3)
 
 # Produce random text
-random_text = make_text(chains)
+random_text = make_text(chains, 3)
 
 print random_text
